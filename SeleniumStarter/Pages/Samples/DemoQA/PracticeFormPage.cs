@@ -27,13 +27,25 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 
         public By SubjectsContainer => By.Id($"subjectsContainer");
 
-        public By MaleRadioButton => By.Id($"gender-radio-1");
-        public By FemaleRadioButton => By.Id($"gender-radio-2");
-        public By OtherRadioButton => By.Id($"gender-radio-2");
+        public By MaleRadioClickWrapper => By.XPath($"//label[@for='gender-radio-1']");
+        public By MaleRadioInput => By.Id($"gender-radio-1");
+        public By FemaleRadioClickWrapper => By.XPath($"//label[@for='gender-radio-2']");
+        public By FemaleRadioInput => By.Id($"gender-radio-2");
+        public By OtherRadioClickWrapper => By.XPath($"//label[@for='gender-radio-3']");
+        public By OtherRadioInput => By.Id($"gender-radio-3");
 
-        public By SportsHobbyCheckbox => By.Id($"hobbies-checkbox-1");
-        public By ReadingHobbyCheckbox => By.Id($"hobbies-checkbox-2");
-        public By MusicHobbyCheckbox => By.Id($"hobbies-checkbox-3");
+
+        public By MobileNumberInput => By.Id($"userNumber");
+
+
+        //example of input being covered by a label -- had to get creative and click the label
+        public By SportsHobbyClickWrapper => By.XPath($"//label[@for='hobbies-checkbox-1']");
+        public By SportsHobbyRadioInput => By.Id($"hobbies-checkbox-1");
+        public By ReadingHobbyClickWrapper => By.XPath($"//label[@for='hobbies-checkbox-2']");
+        public By ReadingHobbyRadioInput => By.Id($"hobbies-checkbox-2");
+        public By MusicHobbyClickWrapper => By.XPath($"//label[@for='hobbies-checkbox-3']");
+        public By MusicHobbyRadioInput => By.Id($"hobbies-checkbox-3");
+
 
         public By PictureUploadInput => By.Id($"uploadPicture");
 

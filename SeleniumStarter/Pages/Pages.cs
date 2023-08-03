@@ -19,8 +19,11 @@ namespace SeleniumStarter.Pages
         public HomePage HomePage { get; set; }
         public FormsPage FormsPage { get; set; }
         public PracticeFormPage PracticeFormPage { get; set; }
-
-
+        public LinksPage LinksPage { get; set; }
+        public LoginPage LoginPage { get; set; }
+        public BookStorePage BookStorePage { get; set; }
+        public ProfilePage ProfilePage { get; set; }
+        
 
         public Pages(IWebDriver driver, Interaction interaction)
         {
@@ -33,6 +36,11 @@ namespace SeleniumStarter.Pages
             HomePage = new(driver, interaction);
             FormsPage = new(driver, interaction);
             PracticeFormPage = new(driver, interaction);
+            LinksPage = new(driver, interaction);
+            LoginPage = new(driver, interaction);
+            BookStorePage = new(driver, interaction);
+            ProfilePage = new(driver, interaction);
+
         }
     }
 }

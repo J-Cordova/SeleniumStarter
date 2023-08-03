@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SeleniumStarter.Pages;
+using OpenQA.Selenium.Support.Extensions;
 
 namespace SeleniumStarter.Tests
 {

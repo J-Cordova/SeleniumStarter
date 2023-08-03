@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V112.DOM;
 using SeleniumStarter.Framework;
 using SeleniumStarter.Tests;
 using System;
@@ -16,5 +17,13 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
         public readonly String Route = "/forms";
 
         public By PracticeFormsLink => By.XPath($"//span[contains(text(),'Practice Form')]");
+        public By FormsDropDownOpenElement => By.XPath($"//div[@class='header-text' and contains(text(),'Forms')]");
+        public By FormDropDownList => By.XPath("(//div[@class='header-text' and contains(text(),'Forms')]//preceding::div[@class='element-group'][1])//div[contains(@class,'element-list collapse')]");
+
+
+        public bool IsFormDropDownOpen() => Interaction.GetElement(FormDropDownList).GetAttribute("class").Contains("open");
+        
+       //public By FormDropDownList
+
     }
 }
