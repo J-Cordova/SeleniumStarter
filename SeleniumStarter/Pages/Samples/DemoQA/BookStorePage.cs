@@ -18,10 +18,5 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
         public By AddToCollectionButton => By.XPath($"//button[contains(text(),'Add To Your Collection')]");
         public By BackToBookStoreButton => By.XPath($"//utton[contains(text(),'Back To Book Store')]");
 
-
-        public void AcceptAddToCollectionAlert()
-        {
-            Driver.SwitchTo().Alert().Accept();
-        }
     }
 }

@@ -15,13 +15,13 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 
         public readonly String Route = "/login";
 
-        private readonly String UserName = "Test@88";
-        private readonly String Password = "Test@88";
+        private readonly String UserName = "Test@888";
+        private readonly String Password = "Test@888";
 
         public By UserNameInput => By.Id($"userName");
         public By PasswordInput => By.Id($"password");
         public By LoginButton => By.Id($"login");
-        public By LogoutButton => By.XPath($"//button[text()='Logout']");
+        public By LogoutButton => By.XPath($"//button[text()='Log out']");
 
 
         public void Login()

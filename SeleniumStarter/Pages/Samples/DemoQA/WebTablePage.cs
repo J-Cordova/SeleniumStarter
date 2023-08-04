@@ -28,7 +28,31 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 
         #endregion
 
-        public By GetCelleByRowAndColumn(int row, int column)  
+        #region Table Columns
+        public int FirstNameColumn = 1;
+        public int LastNameColumn = 2;
+        public int AgeColumn = 3;
+        public int EmailColumn = 4;
+        public int Salary = 5;
+        public int Department = 6;
+        #endregion
+
+
+        //need to add a function that checks value by column--
+
+        //one more test needed for Iframes as well
+
+        public void DeleteRowByCellValue(string value)
+        {
+            Interaction.ClickElement(By.XPath($"(//div[@class='rt-td' and text() = '{value}']/following-sibling::div[@class='rt-td'])[last()]//span[contains(@id, 'delete-record')]"));
+        }
+        
+        public void EditRowByCellValue(string value, string firstname, string lastname, string email, int age, double salary, string department)
+        {
+            Interaction.ClickElement(By.XPath($"(//div[@class='rt-td' and text() = '{value}']/following-sibling::div[@class='rt-td'])[last()]//span[contains(@id, 'edit-record')]"));
+        }
+
+        public By GetCellByRowAndColumn(int row, int column)  
         {
             return By.XPath($"(//div[@class='rt-tbody']//div[@role='row'])[{row}]/div[@role='gridcell'][{column}]");
         }

@@ -32,7 +32,7 @@ namespace SeleniumStarter.Tests.Samples.DemoQA
             Interaction.ClickElement(Pages.BookStorePage.GetBookLinkByIndex());
             var bookTitle = Interaction.GetElement(Pages.ProfilePage.TitleTextLabel).Text;
             Interaction.ClickElement(Pages.BookStorePage.AddToCollectionButton);
-            Pages.BookStorePage.AcceptAddToCollectionAlert();
+            Pages.Shared.AcceptBrowserAlert();
 
             Driver.Navigate().GoToUrl(Pages.HomePage.Url + Pages.ProfilePage.Route);
             Interaction.GetElement(Pages.ProfilePage.SearchBoxInput).SendKeys(bookTitle + Keys.Tab);
@@ -46,6 +46,9 @@ namespace SeleniumStarter.Tests.Samples.DemoQA
         [TearDown]
         public void Cleanup()
         {
+            Interaction.ClickElement(Pages.ProfilePage.GetDeleteButtonForRow(1));
+            Interaction.ClickElement(Pages.ProfilePage.DeleteBookModalOkButton);
+            Pages.Shared.AcceptBrowserAlert();
         }
     }
 }

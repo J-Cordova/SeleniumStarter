@@ -20,8 +20,7 @@ namespace SeleniumStarter.Framework
         public void NavigateToSite()
         {
             var envUrl = config.GetValueOrDefault("environment");
-            var nav = driver.Navigate();
-            nav.GoToUrl("http://www.yahoo.com");
+            driver.Navigate().GoToUrl(envUrl);
             WaitHelper.WaitFor(() => driver.Url == envUrl);
             Thread.Sleep(5000);
         }
