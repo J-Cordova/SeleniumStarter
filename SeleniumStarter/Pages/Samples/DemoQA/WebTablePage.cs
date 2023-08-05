@@ -38,9 +38,17 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
         #endregion
 
 
-        //need to add a function that checks value by column--
+        public List<String> GetAllCellValuesInColumn(int column)
+        {
+            var rawValues = Interaction.GetElements(By.XPath($"//div[@class='rt-tbody']//div[contains(@class,'rt-tr') and @role='row']/div[@class='rt-td'][{column}]"));
 
-        //one more test needed for Iframes as well
+            return rawValues.Where(x => !String.IsNullOrWhiteSpace(x.Text)).Select(x => x.Text).ToList();
+        }
+
+        public IList<IWebElement> GetCellByColumnValue(int column, string value)
+        {
+            return Interaction.GetElements(By.XPath($"//tr/td[{column} and text() = '{value}']"));
+        }
 
         public void DeleteRowByCellValue(string value)
         {

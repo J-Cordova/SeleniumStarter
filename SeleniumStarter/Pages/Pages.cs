@@ -23,6 +23,7 @@ namespace SeleniumStarter.Pages
         public LoginPage LoginPage { get; set; }
         public BookStorePage BookStorePage { get; set; }
         public ProfilePage ProfilePage { get; set; }
+        public WebTablePage WebTablePage { get; set; }
         public Shared Shared { get; set; }
 
         
@@ -44,7 +45,7 @@ namespace SeleniumStarter.Pages
             BookStorePage = new(driver, interaction);
             ProfilePage = new(driver, interaction);
             Shared = new(driver, interaction);
-
+            WebTablePage = new(driver, interaction);
         }
     }
 }
