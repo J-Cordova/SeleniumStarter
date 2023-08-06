@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 using SeleniumStarter.Framework;
 using SeleniumStarter.Pages;
 using System;
@@ -15,15 +16,13 @@ namespace SeleniumStarter.Tests.Samples.DemoQA
         [SetUp]
         public void Init()
         {
-            Driver.Navigate().GoToUrl(Pages.HomePage.Url + Pages.LoginPage.Route);
-
-            if (Interaction.GetElement(Pages.LoginPage.LogoutButton) == null)
-            {
-                Pages.LoginPage.Login();
-            }
-
             Driver.Navigate().GoToUrl(Pages.HomePage.Url + Pages.BookStorePage.Route);
 
+            if (Interaction.GetElement(Pages.BookStorePage.LogoutButton) == null)
+            {
+                Interaction.ClickElement(Pages.BookStorePage.LoginButton);
+                Pages.LoginPage.Login();
+            }
         }
 
         [Test]
@@ -31,7 +30,7 @@ namespace SeleniumStarter.Tests.Samples.DemoQA
         {
             Interaction.ClickElement(Pages.BookStorePage.GetBookLinkByIndex());
             var bookTitle = Interaction.GetElement(Pages.ProfilePage.TitleTextLabel).Text;
-            Interaction.ClickElement(Pages.BookStorePage.AddToCollectionButton);
+            Interaction.JavaScriptClick(Pages.BookStorePage.AddToCollectionButton);
             Pages.Shared.AcceptBrowserAlert();
 
             Driver.Navigate().GoToUrl(Pages.HomePage.Url + Pages.ProfilePage.Route);

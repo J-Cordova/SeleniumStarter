@@ -10,7 +10,7 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 {
     public class HomePage : PageBase
     {
-        public HomePage(IWebDriver driver, Interaction interaction) : base(driver, interaction){ }
+        public HomePage(IWebDriver driver, Interaction interaction) : base(driver, interaction) { }
 
         public readonly String Url = "https://demoqa.com";
 

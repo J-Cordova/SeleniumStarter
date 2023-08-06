@@ -15,7 +15,6 @@ namespace SeleniumStarter.Pages
         public Interaction Interaction { get; set; }
         public IWebDriver Driver { get; set; }
 
-        public CollectorSourceConfiguration CollectorSourceConfiguration { get; set; }
         public HomePage HomePage { get; set; }
         public FormsPage FormsPage { get; set; }
         public PracticeFormPage PracticeFormPage { get; set; }
@@ -24,19 +23,15 @@ namespace SeleniumStarter.Pages
         public BookStorePage BookStorePage { get; set; }
         public ProfilePage ProfilePage { get; set; }
         public WebTablePage WebTablePage { get; set; }
+        public IFramePage IFramePage { get; set; }
         public Shared Shared { get; set; }
-
-        
-
 
         public Pages(IWebDriver driver, Interaction interaction)
         {
             Driver = driver;
             Interaction = interaction;
 
-            CollectorSourceConfiguration = new(driver, interaction);
-
-            //DemoQA
+            #region DemoQA Pages
             HomePage = new(driver, interaction);
             FormsPage = new(driver, interaction);
             PracticeFormPage = new(driver, interaction);
@@ -46,6 +41,9 @@ namespace SeleniumStarter.Pages
             ProfilePage = new(driver, interaction);
             Shared = new(driver, interaction);
             WebTablePage = new(driver, interaction);
+            IFramePage = new(driver, interaction);
+
+            #endregion
         }
     }
 }

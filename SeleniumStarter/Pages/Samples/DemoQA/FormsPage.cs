@@ -20,10 +20,7 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
         public By FormsDropDownOpenElement => By.XPath($"//div[@class='header-text' and contains(text(),'Forms')]");
         public By FormDropDownList => By.XPath("(//div[@class='header-text' and contains(text(),'Forms')]//preceding::div[@class='element-group'][1])//div[contains(@class,'element-list collapse')]");
 
-
-        public bool IsFormDropDownOpen() => Interaction.GetElement(FormDropDownList).GetAttribute("class").Contains("open");
-        
-       //public By FormDropDownList
+        public bool IsFormDropDownOpen() => Interaction.GetElement(FormDropDownList).GetAttribute("class").Contains("open");     
 
     }
 }

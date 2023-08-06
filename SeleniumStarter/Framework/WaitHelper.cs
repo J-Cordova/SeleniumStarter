@@ -13,12 +13,12 @@ namespace SeleniumStarter.Framework
     public class WaitHelper
     {
         private IWebDriver _driver;
-        private WebDriverWait _wait;
+        public WebDriverWait Wait;
 
         public WaitHelper(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
+            Wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 30));
         }
 
         public static void WaitFor(Func<bool> action, int trys = 10, TimeSpan waitInterval = default)
@@ -51,69 +51,32 @@ namespace SeleniumStarter.Framework
 
         public IWebElement WaitForElementExists(By by)
         {
-            IWebElement el = _wait.Until(ExpectedConditions.ElementExists(by));
+            IWebElement el = Wait.Until(ExpectedConditions.ElementExists(by));
             return el;
         }
 
         public IWebElement WaitForElementVisible(By by)
         {
-            IWebElement el = _wait.Until(ExpectedConditions.ElementIsVisible(by));
+            IWebElement el = Wait.Until(ExpectedConditions.ElementIsVisible(by));
             return el;
         }
 
         public IWebElement WaitForElementClickable(By by)
         {
-            IWebElement el = _wait.Until(ExpectedConditions.ElementToBeClickable(by));
+            IWebElement el = Wait.Until(ExpectedConditions.ElementToBeClickable(by));
             return el;
         }
 
         public ICollection<IWebElement> WaitForElementsVisible(By by)
         {
-            var els = _wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(by));
+            var els = Wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(by));
             return els.ToList();
         }
 
         public IWebElement WaitForElementInvisible(By by)
         {
-            _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(by));
+            Wait.Until(ExpectedConditions.InvisibilityOfElementLocated(by));
             return _driver.FindElement(by);
         }
     }
-
-    //public class WaitHelper
-    //{
-    //    private IWebDriver Driver;
-    //    private WebDriverWait Wait;
-
-    //    public WaitHelper(IWebDriver driver)
-    //    {
-    //        Driver = driver;
-    //        Wait = new WebDriverWait(Driver, new TimeSpan(0,0,30));
-    //    }
-
-    //    public static void WaitFor(Func<bool> action, int trys = 10, TimeSpan waitInterval = default)
-    //    {
-    //        if (waitInterval == default) waitInterval = TimeSpan.FromMilliseconds(500);
-
-    //        for (int i = 1; i < trys; i++)
-    //        {
-    //            var result = action();
-    //            if (result)
-    //            {
-    //                break;
-    //            }
-    //            else if (i == trys)
-    //            {
-    //                throw new TimeoutException($"Timeout occured after {trys} attempts");
-    //            }
-    //            else
-    //            {
-    //                Task.Delay(waitInterval).Wait();
-    //            }
-    //        }
-    //    }
-
-    //}
-
-
 }

@@ -10,8 +10,7 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 {
     public class PracticeFormPage : PageBase
     {
-        public PracticeFormPage(IWebDriver driver, Interaction interaction) : base(driver, interaction)
-        {}
+        public PracticeFormPage(IWebDriver driver, Interaction interaction) : base(driver, interaction) { }
 
         public readonly String Route = "/automation-practice-form";
 

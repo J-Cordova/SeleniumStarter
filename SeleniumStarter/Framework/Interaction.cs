@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using Polly;
 using SeleniumExtras.WaitHelpers;
@@ -81,6 +82,20 @@ namespace SeleniumStarter.Framework
             WaitHelper.WaitFor(200, "For UI refesh after click");
         }
 
+        public void JavaScriptClick(By by)
+        {
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)_driver;
+            executor.ExecuteScript("arguments[0].click();", GetElement(by));
+
+            //var elementToClick = GetElement(by);
+            //Actions action = new Actions(_driver);
+            //action.MoveToElement(elementToClick).Build().Perform();
+            //elementToClick.Click();
+
+            //((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].style.visibility='visible'", elementToClick);
+            //elementToClick.Click();
+        }
+
         public void InputText(By by, string text, bool clearInput = true)
         {
             Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
@@ -121,31 +136,14 @@ namespace SeleniumStarter.Framework
             });
         }
 
-        public string VerifyFileWasDownloaded(string type = "")
-        {
-            var dataInformation = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
-
-            var existingFilePath = "";
-            string Path = System.Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads";
-            string[] filePaths = Directory.GetFiles(Path);
-            foreach (string p in filePaths)
-            {
-                if (p.Contains(type) && p.Contains(dataInformation))
-                {
-                    existingFilePath = p;
-                }
-            }
-            return existingFilePath;
-        }
-
         public By SelectDropdownOption(string nameContains) => By.XPath($"//div[contains(@class, 'k-animation-container-shown')]//span[contains(text(),'{nameContains}')]");
 
         public string GetCurrentDateTimeInFileFormat() => DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
 
-        #region GridInteraction
+        #region KendoGridInteraction
         public int GetGridCount(int tableIndex = 1)
         {
-            var gridData = "";//GetElement(GridPager(tableIndex)).Text;
+            var gridData = "";
             WaitHelper.WaitFor(() =>
             {
                 gridData = GetElement(GridPager(tableIndex)).Text;
@@ -228,7 +226,6 @@ namespace SeleniumStarter.Framework
         public void DeleteRowByName(string name, int tableIndex = 1, int offsetFromLast = 0)
         {
             var deleteButtonTdXpath = $"((//table[contains(@class,'k-table')])[{tableIndex + 1}])//tr//td[contains(text(), '{name}')]/following-sibling::td[last()-{(1 + offsetFromLast).ToString()}]";
-            //var deleteButtonTdXpath = $"((//table[contains(@class,'k-table')])[{tableIndex}]//tr//td[contains(text(), '{name}')]/following-sibling::td)[last() -{(1+ offsetFromLast).ToString()}]";
             var deleteButtonXpath = $"(//input[contains(@value, '{name}')]/parent::td/following-sibling::td)[last()-1]//button";
             var deleteButtonUneditableNameXpath = $"(//table[contains(@class,'k-table')])[{tableIndex + 1}]//td[contains(text(), '{name}')]/following-sibling::td[last()-{(1 + offsetFromLast).ToString()}]//button";
 
@@ -245,90 +242,4 @@ namespace SeleniumStarter.Framework
         #endregion
     }
 
-
-    //public class Interaction
-    //{
-    //    private IWebDriver _driver;
-    //    private WebDriverWait _wait { get; set; }
-    //    public Interaction(IWebDriver driver)
-    //    {
-    //        _driver = driver;
-    //        _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-    //    }
-
-    //    public IWebElement GetElement(By by)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            WaitHelper.WaitFor(() => _driver.FindElement(by) != null);
-    //        });
-    //        return _driver.FindElement(by);
-    //    }
-    //    public IList<IWebElement> GetElements(By by)
-    //    {
-    //        WaitHelper.WaitFor(() =>)
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            WaitHelper.WaitFor(() => _driver.FindElements(by) != null);
-    //        });
-    //        return _driver.FindElements(by);
-    //    }
-
-    //    public void ClickElement(By by)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            var el = GetElement(by);
-    //            _wait.Until(ExpectedConditions.ElementToBeClickable(by));
-    //            el.Click();
-    //        });
-    //    }
-
-    //    public void ClickElementViaJavascript(By by)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            var el = GetElement(by);
-    //            _wait.Until(ExpectedConditions.ElementToBeClickable(by));
-
-    //           ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", el); ;
-    //        });
-    //    }
-
-    //    public void InputText(By by, string text, bool clearInput = true)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            var el = GetElement(by);
-    //            if (clearInput) el.Clear();
-    //            el.SendKeys(text);
-    //        });
-    //    }
-
-    //    public void SetAttribute(By by, String attName, String attValue)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            var el = GetElement(by);
-    //            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2]);", el, attName, attValue);
-    //        });
-    //    }
-
-    //    public void SetElementTextDirect(By by, String attValue)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            var el = GetElement(by);
-    //            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].innerHTML = arguments[2];", el, attValue);
-
-    //        });
-    //    }
-
-    //    public void WaitUntilUrlContains(string contains)
-    //    {
-    //        Policy.Handle<Exception>().WaitAndRetry(10, _ => TimeSpan.FromMilliseconds(500)).Execute(() => {
-    //            if (_driver.Url.Contains(contains))
-    //            {
-    //                return _driver.Url;
-    //            }
-    //            else
-    //            {
-    //                throw new NotFoundException();
-    //            }
-    //        });
-    //    }
-    //}
 }

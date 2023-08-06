@@ -22,7 +22,6 @@ namespace SeleniumStarter.Framework
             var envUrl = config.GetValueOrDefault("environment");
             driver.Navigate().GoToUrl(envUrl);
             WaitHelper.WaitFor(() => driver.Url == envUrl);
-            Thread.Sleep(5000);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 using SeleniumStarter.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace SeleniumStarter.Pages.Samples.DemoQA
 
         public void AcceptBrowserAlert()
         {
+            Wait.Until(ExpectedConditions.AlertIsPresent());
             Driver.SwitchTo().Alert().Accept();
         }
     }
