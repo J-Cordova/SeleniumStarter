@@ -26,7 +26,7 @@ namespace SeleniumStarter.Tests
 
             Configuration = ConfigurationProvider.GetConfiguration();
 
-            Driver = new ChromeDriver(Environment.CurrentDirectory + "\\chromedriver.exe", chromeOptions);
+            Driver = new ChromeDriver(Environment.CurrentDirectory, chromeOptions);
             WaitHelper = new WaitHelper(Driver);
             Interaction = new Interaction(Driver);
             TestUtilities = new TestUtilities(Driver, Configuration);
